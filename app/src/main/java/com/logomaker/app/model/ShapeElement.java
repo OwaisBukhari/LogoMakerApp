@@ -162,11 +162,10 @@ public class ShapeElement extends LogoElement {
     }
     
     @Override
-    public void draw(Canvas canvas) {
+    public void draw(Canvas canvas, Paint paint) {
         canvas.save();
         canvas.concat(getTransformMatrix());
         
-        // Center the shape
         float centerX = 0;
         float centerY = 0;
         
@@ -174,8 +173,20 @@ public class ShapeElement extends LogoElement {
             case SHAPE_RECTANGLE:
                 drawRectangle(canvas, centerX, centerY);
                 break;
+            case SHAPE_ROUNDED_RECTANGLE:
+                drawRoundedRectangle(canvas, centerX, centerY);
+                break;
             case SHAPE_CIRCLE:
                 drawCircle(canvas, centerX, centerY);
+                break;
+            case SHAPE_OVAL:
+                RectF ovalRect = new RectF(-width / 2, -height / 2, width / 2, height / 2);
+                if (hasFill) {
+                    canvas.drawOval(ovalRect, fillPaint);
+                }
+                if (hasStroke) {
+                    canvas.drawOval(ovalRect, strokePaint);
+                }
                 break;
             case SHAPE_TRIANGLE:
                 drawTriangle(canvas, centerX, centerY);
@@ -183,29 +194,19 @@ public class ShapeElement extends LogoElement {
             case SHAPE_STAR:
                 drawStar(canvas, centerX, centerY);
                 break;
-            case SHAPE_ROUNDED_RECTANGLE:
-                drawRoundedRectangle(canvas, centerX, centerY);
-                break;
             case SHAPE_POLYGON:
                 drawPolygon(canvas, sides, centerX, centerY);
                 break;
             case SHAPE_CUSTOM:
                 if (customPath != null) {
-                    canvas.drawPath(customPath, fillPaint);
+                    if (hasFill) {
+                        canvas.drawPath(customPath, fillPaint);
+                    }
                     if (hasStroke) {
                         canvas.drawPath(customPath, strokePaint);
                     }
                 }
                 break;
-        }
-        
-        // Draw selection highlight if selected
-        if (isSelected()) {
-            Paint selectionPaint = new Paint();
-            selectionPaint.setColor(Color.BLUE);
-            selectionPaint.setStyle(Paint.Style.STROKE);
-            selectionPaint.setStrokeWidth(2);
-            canvas.drawRect(-width / 2 - 5, -height / 2 - 5, width / 2 + 5, height / 2 + 5, selectionPaint);
         }
         
         canvas.restore();
@@ -499,5 +500,13 @@ public class ShapeElement extends LogoElement {
         }
         
         return clone;
+    }
+
+    /**
+     * Get the type of this element
+     * @return Element type
+     */
+    public int getType() {
+        return LogoElement.TYPE_SHAPE;
     }
 } 

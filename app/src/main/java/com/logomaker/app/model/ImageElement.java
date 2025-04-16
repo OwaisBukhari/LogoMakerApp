@@ -81,8 +81,8 @@ public class ImageElement extends LogoElement {
     }
     
     @Override
-    public ElementType getType() {
-        return ElementType.IMAGE;
+    public int getType() {
+        return LogoElement.TYPE_IMAGE;
     }
     
     @Override
@@ -96,7 +96,7 @@ public class ImageElement extends LogoElement {
     }
     
     @Override
-    public void draw(Canvas canvas) {
+    public void draw(Canvas canvas, Paint paint) {
         if (bitmap == null) {
             return;
         }

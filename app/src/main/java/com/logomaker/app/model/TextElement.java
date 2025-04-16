@@ -8,6 +8,9 @@ import android.graphics.Typeface;
 import android.os.Parcel;
 import android.os.Parcelable;
 
+/**
+ * A text element that can be added to a logo
+ */
 public class TextElement extends LogoElement {
     
     public static final Parcelable.Creator<TextElement> CREATOR = new Parcelable.Creator<TextElement>() {
@@ -32,6 +35,9 @@ public class TextElement extends LogoElement {
     private Paint textPaint;
     private Rect textBounds;
     
+    /**
+     * Create a new text element
+     */
     public TextElement() {
         super();
         text = "Sample Text";
@@ -47,6 +53,9 @@ public class TextElement extends LogoElement {
         measureText();
     }
     
+    /**
+     * Create a text element from a Parcel
+     */
     protected TextElement(Parcel in) {
         super(in);
         text = in.readString();
@@ -72,23 +81,17 @@ public class TextElement extends LogoElement {
         dest.writeByte((byte) (isUnderlined ? 1 : 0));
     }
     
+    /**
+     * Get the type of this element
+     * @return Element type
+     */
     @Override
-    public ElementType getType() {
-        return ElementType.TEXT;
+    public int getType() {
+        return LogoElement.TYPE_TEXT;
     }
     
     @Override
-    public float getWidth() {
-        return textBounds.width();
-    }
-    
-    @Override
-    public float getHeight() {
-        return textBounds.height();
-    }
-    
-    @Override
-    public void draw(Canvas canvas) {
+    public void draw(Canvas canvas, Paint paint) {
         canvas.save();
         canvas.concat(getTransformMatrix());
         
@@ -105,86 +108,154 @@ public class TextElement extends LogoElement {
                     underlinePaint);
         }
         
-        // Draw selection highlight if selected
-        if (isSelected()) {
-            Paint selectionPaint = new Paint();
-            selectionPaint.setColor(Color.BLUE);
-            selectionPaint.setStyle(Paint.Style.STROKE);
-            selectionPaint.setStrokeWidth(2);
-            canvas.drawRect(-5, -5, textBounds.width() + 5, textBounds.height() + 5, selectionPaint);
-        }
-        
         canvas.restore();
     }
     
+    @Override
+    public float getWidth() {
+        return textBounds.width();
+    }
+    
+    @Override
+    public float getHeight() {
+        return textBounds.height();
+    }
+    
+    @Override
+    public TextElement clone() {
+        TextElement clone = new TextElement();
+        clone.text = this.text;
+        clone.textColor = this.textColor;
+        clone.textSize = this.textSize;
+        clone.typeface = this.typeface;
+        clone.isBold = this.isBold;
+        clone.isItalic = this.isItalic;
+        clone.isUnderlined = this.isUnderlined;
+        clone.x = this.x;
+        clone.y = this.y;
+        clone.rotation = this.rotation;
+        clone.scale = this.scale;
+        clone.opacity = this.opacity;
+        clone.locked = this.locked;
+        clone.updateTextPaint();
+        clone.measureText();
+        return clone;
+    }
+    
+    /**
+     * Get the text content
+     */
     public String getText() {
         return text;
     }
     
+    /**
+     * Set the text content
+     */
     public void setText(String text) {
         this.text = text;
         measureText();
     }
     
+    /**
+     * Get the text color
+     */
     public int getTextColor() {
         return textColor;
     }
     
+    /**
+     * Set the text color
+     */
     public void setTextColor(int textColor) {
         this.textColor = textColor;
         updateTextPaint();
     }
     
+    /**
+     * Get the text size
+     */
     public float getTextSize() {
         return textSize;
     }
     
+    /**
+     * Set the text size
+     */
     public void setTextSize(float textSize) {
         this.textSize = textSize;
         updateTextPaint();
         measureText();
     }
     
+    /**
+     * Get the typeface
+     */
     public Typeface getTypeface() {
         return typeface;
     }
     
+    /**
+     * Set the typeface
+     */
     public void setTypeface(Typeface typeface) {
         this.typeface = typeface;
         updateTextPaint();
         measureText();
     }
     
+    /**
+     * Check if text is bold
+     */
     public boolean isBold() {
         return isBold;
     }
     
+    /**
+     * Set bold style
+     */
     public void setBold(boolean bold) {
         isBold = bold;
         updateTextPaint();
         measureText();
     }
     
+    /**
+     * Check if text is italic
+     */
     public boolean isItalic() {
         return isItalic;
     }
     
+    /**
+     * Set italic style
+     */
     public void setItalic(boolean italic) {
         isItalic = italic;
         updateTextPaint();
         measureText();
     }
     
+    /**
+     * Check if text is underlined
+     */
     public boolean isUnderlined() {
         return isUnderlined;
     }
     
+    /**
+     * Set underlined style
+     */
     public void setUnderlined(boolean underlined) {
         isUnderlined = underlined;
     }
     
+    /**
+     * Update the text paint with current properties
+     */
     private void updateTextPaint() {
         textPaint.setColor(textColor);
+        textPaint.setAlpha(opacity);
         textPaint.setTextSize(textSize);
         
         int style = Typeface.NORMAL;
@@ -199,6 +270,9 @@ public class TextElement extends LogoElement {
         textPaint.setTypeface(Typeface.create(typeface, style));
     }
     
+    /**
+     * Measure the text bounds
+     */
     private void measureText() {
         textPaint.getTextBounds(text, 0, text.length(), textBounds);
     }

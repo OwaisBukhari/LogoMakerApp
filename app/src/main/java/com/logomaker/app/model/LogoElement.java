@@ -13,6 +13,11 @@ import java.util.UUID;
  * Base class for all elements that can be added to a logo
  */
 public abstract class LogoElement implements Parcelable {
+    // Element types
+    public static final int TYPE_TEXT = 0;
+    public static final int TYPE_SHAPE = 1;
+    public static final int TYPE_IMAGE = 2;
+    
     protected String id;
     protected float x;
     protected float y;
@@ -22,6 +27,7 @@ public abstract class LogoElement implements Parcelable {
     protected float scale;
     protected int opacity;
     protected boolean locked;
+    protected boolean selected;
     
     /**
      * Create a new logo element
@@ -281,8 +287,30 @@ public abstract class LogoElement implements Parcelable {
     }
     
     /**
+     * Check if element is selected
+     * @return True if selected
+     */
+    public boolean isSelected() {
+        return selected;
+    }
+    
+    /**
+     * Set selected state
+     * @param selected New selected state
+     */
+    public void setSelected(boolean selected) {
+        this.selected = selected;
+    }
+    
+    /**
      * Clone this element
      * @return A new instance of the element with the same properties
      */
     public abstract LogoElement clone();
+    
+    /**
+     * Get the type of this element
+     * @return Element type (TYPE_TEXT, TYPE_SHAPE, or TYPE_IMAGE)
+     */
+    public abstract int getType();
 } 
