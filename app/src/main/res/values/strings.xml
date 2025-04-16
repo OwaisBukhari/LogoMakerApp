@@ -1,0 +1,63 @@
+<resources>
+    <string name="app_name">Logo Maker</string>
+    <string name="logo_editor">Logo Editor</string>
+    <string name="select_template">Select Template</string>
+    <string name="export_options">Export Options</string>
+    <string name="action_settings">Settings</string>
+    
+    <!-- Main screen -->
+    <string name="create_new_logo">Create New Logo</string>
+    <string name="my_designs">My Designs</string>
+    <string name="templates">Templates</string>
+    <string name="tutorials">Tutorials</string>
+    <string name="about">About</string>
+    
+    <!-- Editor screen -->
+    <string name="add_text">Add Text</string>
+    <string name="add_shape">Add Shape</string>
+    <string name="add_image">Add Image</string>
+    <string name="background">Background</string>
+    <string name="text_color">Text Color</string>
+    <string name="font">Font</string>
+    <string name="size">Size</string>
+    <string name="rotate">Rotate</string>
+    <string name="undo">Undo</string>
+    <string name="redo">Redo</string>
+    <string name="save">Save</string>
+    <string name="export">Export</string>
+    
+    <!-- Export options -->
+    <string name="export_logo">Export Logo</string>
+    <string name="export_for_social_media">Export for Social Media</string>
+    <string name="facebook_size">Facebook (820x312 px)</string>
+    <string name="instagram_size">Instagram (1080x1080 px)</string>
+    <string name="twitter_size">Twitter (1500x500 px)</string>
+    <string name="youtube_size">YouTube (2560x1440 px)</string>
+    <string name="custom_size">Custom Size</string>
+    <string name="export_format">Export Format</string>
+    <string name="png">PNG</string>
+    <string name="jpg">JPG</string>
+    <string name="svg">SVG</string>
+    <string name="pdf">PDF</string>
+    
+    <!-- Dialogs -->
+    <string name="enter_text">Enter Text</string>
+    <string name="please_enter_text">Please enter text for your logo</string>
+    <string name="ok">OK</string>
+    <string name="cancel">Cancel</string>
+    <string name="error">Error</string>
+    <string name="success">Success</string>
+    <string name="logo_saved">Logo saved successfully!</string>
+    <string name="logo_exported">Logo exported successfully!</string>
+    <string name="storage_permission_needed">Storage permission is needed to save logos</string>
+    
+    <!-- Template categories -->
+    <string name="business">Business</string>
+    <string name="technology">Technology</string>
+    <string name="food">Food</string>
+    <string name="fashion">Fashion</string>
+    <string name="sports">Sports</string>
+    <string name="education">Education</string>
+    <string name="health">Health</string>
+    <string name="art">Art</string>
+</resources> 
