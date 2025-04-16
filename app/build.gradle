@@ -26,6 +26,13 @@ android {
     }
 }
 
+// Make sure repositories are defined at the project level
+repositories {
+    google()
+    mavenCentral()
+    maven { url "https://jitpack.io" }
+}
+
 dependencies {
     implementation 'androidx.appcompat:appcompat:1.6.1'
     implementation 'com.google.android.material:material:1.8.0'
